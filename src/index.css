@@ -3,3 +3,7 @@
   --grey: #323232;
   --blue: #14ffec;
 }
+
+body {
+  background-color: var(--black);
+}

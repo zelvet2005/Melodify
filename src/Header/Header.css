@@ -1,0 +1,19 @@
+header {
+  height: 10vh;
+  background-color: var(--grey);
+  display: flex;
+  justify-content: space-between;
+}
+
+header > h1 {
+  height: 100%;
+  margin-left: 20px;
+  font-size: 2.6rem;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  height: 8vh;
+}

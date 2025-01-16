@@ -1,15 +1,46 @@
 import classes from "./Audio.module.css";
 import PropTypes from "prop-types";
+import { useRef, useState } from "react";
 
 export default function Audio({ src, name }) {
-  const playStopSvgUrl = "/images/play.svg"; // "/images/stop.svg"
-  const muteUnmuteSvgUrl = "/images/unmute.svg"; // /images/mute.svg
-  const emptyFullLikeSvgUrl = "/images/empty-like.svg"; // "/images/full-like.svg"
+  const audio = useRef(null);
+
+  const [isPlay, setIsPlay] = useState(false);
+  const [isMute, setIsMute] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  function handlePlay() {
+    const newIsPlay = !isPlay;
+    setIsPlay(newIsPlay);
+    if (newIsPlay) {
+      audio.current.play();
+    } else {
+      audio.current.pause();
+    }
+  }
+  function handleMute() {
+    const newIsMute = !isMute;
+    setIsMute(!isMute);
+    if (newIsMute) {
+      audio.current.muted = true;
+    } else {
+      audio.current.muted = false;
+    }
+  }
+  function handleFavorite() {
+    setIsFavorite(!isFavorite);
+  }
 
   return (
     <div role="music-player" className={classes.container}>
-      <button aria-label="play or stop">
-        <img src={playStopSvgUrl} alt="" draggable={false} />
+      <audio src={src} ref={audio}></audio>
+
+      <button aria-label="play or stop" onClick={handlePlay}>
+        <img
+          src={isPlay ? "/images/stop.svg" : "/images/play.svg"}
+          alt=""
+          draggable={false}
+        />
       </button>
 
       <div role="music-info" className={classes.info}>
@@ -21,16 +52,22 @@ export default function Audio({ src, name }) {
         </div>
       </div>
 
-      <button aria-label="mute or unmute">
-        <img src={muteUnmuteSvgUrl} alt="" draggable={false} />
+      <button aria-label="mute or unmute" onClick={handleMute}>
+        <img
+          src={isMute ? "/images/mute.svg" : "/images/unmute.svg"}
+          alt=""
+          draggable={false}
+        />
       </button>
 
-      <label htmlFor="favorite">
-        <img src={emptyFullLikeSvgUrl} alt="" draggable={false} />
+      <label htmlFor="favorite" onClick={handleFavorite}>
+        <img
+          src={isFavorite ? "/images/full-like.svg" : "/images/empty-like.svg"}
+          alt=""
+          draggable={false}
+        />
       </label>
       <input id="favorite" type="checkbox" style={{ display: "none" }} />
-
-      <audio src={src}></audio>
     </div>
   );
 }

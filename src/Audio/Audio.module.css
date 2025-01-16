@@ -6,8 +6,6 @@
 }
 
 .container {
-  margin: 20px auto; /* temp */
-
   width: 50%;
   height: 50px;
   background-color: var(--grey);
@@ -44,7 +42,7 @@
 }
 
 .range {
-  -webkit-appearance: none;
+  appearance: none;
   width: 85%;
   height: 6px;
   background: var(--lightgrey);

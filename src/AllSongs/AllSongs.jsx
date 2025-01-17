@@ -7,11 +7,8 @@ export default function AllSongs() {
       <div role="musics">
         <ul>
           <li>
-            <Audio src={"/music/Back In Black.mp3"} name={"Back In Black"} />
-            <Audio
-              src={"/music/Eruption - One Way Ticket.mp3"}
-              name={"Eruption - One Way Ticket"}
-            />
+            <Audio src={"/music/Back In Black.mp3"} />
+            <Audio src={"/music/Eruption - One Way Ticket.mp3"} />
           </li>
         </ul>
       </div>

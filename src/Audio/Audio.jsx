@@ -2,19 +2,32 @@ import classes from "./Audio.module.css";
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 
-export default function Audio({ src, name }) {
+export default function Audio({ src }) {
   const audio = useRef(null);
 
   const [isPlay, setIsPlay] = useState(false);
   const [isMute, setIsMute] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
+  const [duration, setDuration] = useState("00:00");
+  const [currentTime, setCurrentTime] = useState("00:00");
+  const [timer, setTimer] = useState(null);
+
   function handlePlay() {
     const newIsPlay = !isPlay;
     setIsPlay(newIsPlay);
     if (newIsPlay) {
+      setTimer(
+        setInterval(() => {
+          setCurrentTime(
+            getFormattedTime(Math.round(audio.current.currentTime))
+          );
+        }, 1000)
+      );
       audio.current.play();
     } else {
+      clearInterval(timer);
+      setTimer(null);
       audio.current.pause();
     }
   }
@@ -31,9 +44,45 @@ export default function Audio({ src, name }) {
     setIsFavorite(!isFavorite);
   }
 
+  function getFormattedTime(timeInSeconds) {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${minutes > 9 ? minutes : `0${minutes}`}:${
+      seconds > 9 ? seconds : `0${seconds}`
+    }`;
+  }
+
+  function getDuration() {
+    const duration = audio.current.duration;
+    return getFormattedTime(duration);
+  }
+  function getSongNameFromSrc() {
+    let from = 0;
+    for (let i = src.length - 1; i > 0; i--) {
+      if (src[i] === ".") {
+        from = i;
+        break;
+      }
+    }
+
+    let to = 0;
+    for (let j = from; j > 0; j--) {
+      if (src[j] === "/") {
+        to = j + 1;
+        break;
+      }
+    }
+
+    return src.slice(to, from);
+  }
+
   return (
     <div role="music-player" className={classes.container}>
-      <audio src={src} ref={audio}></audio>
+      <audio
+        src={src}
+        ref={audio}
+        onLoadedMetadata={() => setDuration(getDuration())}
+      ></audio>
 
       <button aria-label="play or stop" onClick={handlePlay}>
         <img
@@ -44,10 +93,10 @@ export default function Audio({ src, name }) {
       </button>
 
       <div role="music-info" className={classes.info}>
-        <h2>{name}</h2>
+        <h2>{getSongNameFromSrc()}</h2>
         <div role="duration" className={classes.duration}>
-          <time aria-label="current">00:00</time>/
-          <time aria-label="duration">00:00</time>
+          <time aria-label="current">{currentTime}</time>/
+          <time aria-label="duration">{duration}</time>
           <input type="range" className={classes.range} />
         </div>
       </div>
@@ -74,5 +123,4 @@ export default function Audio({ src, name }) {
 
 Audio.propTypes = {
   src: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
 };

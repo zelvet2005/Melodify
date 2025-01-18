@@ -9,8 +9,8 @@ export default function Audio({ src }) {
   const [isMute, setIsMute] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const [duration, setDuration] = useState("00:00");
-  const [currentTime, setCurrentTime] = useState("00:00");
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
   const [timer, setTimer] = useState(null);
 
   function handlePlay() {
@@ -19,9 +19,7 @@ export default function Audio({ src }) {
     if (newIsPlay) {
       setTimer(
         setInterval(() => {
-          setCurrentTime(
-            getFormattedTime(Math.round(audio.current.currentTime))
-          );
+          setCurrentTime(Math.round(audio.current.currentTime));
         }, 1000)
       );
       audio.current.play();
@@ -51,11 +49,6 @@ export default function Audio({ src }) {
       seconds > 9 ? seconds : `0${seconds}`
     }`;
   }
-
-  function getDuration() {
-    const duration = audio.current.duration;
-    return getFormattedTime(duration);
-  }
   function getSongNameFromSrc() {
     let from = 0;
     for (let i = src.length - 1; i > 0; i--) {
@@ -81,7 +74,7 @@ export default function Audio({ src }) {
       <audio
         src={src}
         ref={audio}
-        onLoadedMetadata={() => setDuration(getDuration())}
+        onLoadedMetadata={() => setDuration(audio.current.duration)}
       ></audio>
 
       <button aria-label="play or stop" onClick={handlePlay}>
@@ -95,8 +88,8 @@ export default function Audio({ src }) {
       <div role="music-info" className={classes.info}>
         <h2>{getSongNameFromSrc()}</h2>
         <div role="duration" className={classes.duration}>
-          <time aria-label="current">{currentTime}</time>/
-          <time aria-label="duration">{duration}</time>
+          <time aria-label="current">{getFormattedTime(currentTime)}</time>/
+          <time aria-label="duration">{getFormattedTime(duration)}</time>
           <input type="range" className={classes.range} />
         </div>
       </div>

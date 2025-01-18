@@ -41,6 +41,11 @@ export default function Audio({ src }) {
   function handleFavorite() {
     setIsFavorite(!isFavorite);
   }
+  function handleRewind(e) {
+    const newTime = e.target.value;
+    setCurrentTime(newTime);
+    audio.current.currentTime = newTime;
+  }
 
   function getFormattedTime(timeInSeconds) {
     const minutes = Math.floor(timeInSeconds / 60);
@@ -90,7 +95,14 @@ export default function Audio({ src }) {
         <div role="duration" className={classes.duration}>
           <time aria-label="current">{getFormattedTime(currentTime)}</time>/
           <time aria-label="duration">{getFormattedTime(duration)}</time>
-          <input type="range" className={classes.range} />
+          <input
+            type="range"
+            className={classes.range}
+            min={0}
+            max={duration}
+            value={currentTime}
+            onChange={(e) => handleRewind(e)}
+          />
         </div>
       </div>
 

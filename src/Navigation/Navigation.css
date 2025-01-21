@@ -12,7 +12,7 @@ nav a {
   font-size: 1.3rem;
 }
 
-nav a:focus,
+nav a:focus-visible,
 nav a:hover {
   outline: none;
   color: var(--blue);

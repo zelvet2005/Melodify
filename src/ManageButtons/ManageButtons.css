@@ -1,0 +1,31 @@
+.manage-buttons {
+  width: 300px;
+  height: 60px;
+  margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.manage-buttons > * {
+  height: 60px;
+  width: 60px;
+  box-sizing: border-box;
+  border: 0;
+  background-color: var(--grey);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.manage-buttons > *:focus-visible {
+  outline: 2px solid var(--blue);
+}
+
+.manage-buttons > *:hover {
+  filter: brightness(1.4); /* Збільшення яскравості на 20% */
+}
+
+.manage-buttons > * > img {
+  width: 85%;
+  height: 85%;
+}

@@ -114,7 +114,7 @@ export default function Audio({ src }) {
         />
       </button>
 
-      <label htmlFor="favorite" onClick={handleFavorite}>
+      <label htmlFor="favorite" tabIndex={0} onClick={handleFavorite}>
         <img
           src={isFavorite ? "/images/full-like.svg" : "/images/empty-like.svg"}
           alt=""

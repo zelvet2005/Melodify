@@ -6,6 +6,14 @@ import AllSongs from "../AllSongs/AllSongs";
 import Search from "../Search/Search";
 import ManageButtons from "../ManageButtons/ManageButtons";
 
+const allMusics = [
+  "/music/Back In Black.mp3",
+  "/music/Eruption - One Way Ticket.mp3",
+  "/music/PSY - GANGNAM STYLE(강남스타일) MV.mp3",
+  "/music/Shocking Blue - Venus.mp3",
+  "/music/The Weeknd - Blinding Lights.mp3",
+];
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -15,7 +23,7 @@ export default function App() {
         <ManageButtons />
         <Routes>
           <Route path="/" element={<Navigate to="/all" />} />
-          <Route path="/all" element={<AllSongs />} />
+          <Route path="/all" element={<AllSongs musics={allMusics} />} />
           <Route path="/favorite" element={<FavoriteSongs />} />
         </Routes>
       </main>

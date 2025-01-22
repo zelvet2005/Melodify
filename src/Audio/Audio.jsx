@@ -1,13 +1,20 @@
 import classes from "./Audio.module.css";
 import PropTypes from "prop-types";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { ManageFavoriteSongsContext } from "../App/App";
 
-export default function Audio({ src }) {
+export default function Audio({ music }) {
+  const { removeFromFavorite, addToFavorite } = useContext(
+    ManageFavoriteSongsContext
+  );
+
+  const { src, isFavorite } = music;
+
   const audio = useRef(null);
 
   const [isPlay, setIsPlay] = useState(false);
   const [isMute, setIsMute] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isCurrSongFavorite, setIsCurrSongFavorite] = useState(isFavorite);
 
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -39,7 +46,14 @@ export default function Audio({ src }) {
     }
   }
   function handleFavorite() {
-    setIsFavorite(!isFavorite);
+    const newIsFavorite = !isCurrSongFavorite;
+    setIsCurrSongFavorite(newIsFavorite);
+    music.isFavorite = newIsFavorite;
+    if (newIsFavorite) {
+      addToFavorite(music);
+    } else {
+      removeFromFavorite(music);
+    }
   }
   function handleRewind(e) {
     const newTime = e.target.value;
@@ -116,7 +130,11 @@ export default function Audio({ src }) {
 
       <label htmlFor="favorite" tabIndex={0} onClick={handleFavorite}>
         <img
-          src={isFavorite ? "/images/full-like.svg" : "/images/empty-like.svg"}
+          src={
+            isCurrSongFavorite
+              ? "/images/full-like.svg"
+              : "/images/empty-like.svg"
+          }
           alt=""
           draggable={false}
         />
@@ -127,5 +145,5 @@ export default function Audio({ src }) {
 }
 
 Audio.propTypes = {
-  src: PropTypes.string.isRequired,
+  music: PropTypes.object.isRequired,
 };

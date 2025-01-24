@@ -1,0 +1,74 @@
+.player-container {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.record-img {
+  width: 350px;
+}
+
+.song-name {
+  font-size: 2.1rem;
+  margin-top: 25px;
+}
+
+.range {
+  appearance: none;
+  width: 50%;
+  height: 6px;
+  margin-top: 20px;
+  background: var(--grey);
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 6px;
+  background: var(--blue);
+  border-radius: 5px;
+}
+
+.range::-moz-range-track {
+  height: 6px;
+  background: var(--blue);
+  border-radius: 5px;
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  background: var(--grey);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid var(--blue);
+  position: relative;
+  bottom: 4px;
+}
+
+.range:focus-visible::-webkit-slider-thumb {
+  background: var(--blue);
+}
+
+.range::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: var(--grey);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid var(--blue);
+  position: relative;
+  bottom: 4px;
+}
+
+.time-block {
+  width: 50%;
+  margin-top: 5px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}

@@ -4,6 +4,7 @@ import { getMusics, saveMusics } from "../services";
 import Header from "../Header/Header";
 import SongsList from "../SongsList/SongsList";
 import { createContext, useEffect, useState } from "react";
+import Player from "../Player/Player";
 
 export const FavoriteMusicsContext = createContext();
 
@@ -41,6 +42,7 @@ export default function App() {
               path="/favorite"
               element={<SongsList musics={favoriteMusics} />}
             />
+            <Route path="/player/:name" element={<Player />} />
           </Routes>
         </FavoriteMusicsContext.Provider>
       </main>

@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useContext, useState } from "react";
 import { FavoriteMusicsContext } from "../App/App";
+import { SongsListContext } from "../SongsList/SongsList";
 
 export default function Song({ music }) {
   const { removeFavoriteMusic, addFavoriteMusic } = useContext(
     FavoriteMusicsContext
   );
+  const musics = useContext(SongsListContext);
   const [isFavorite, setIsFavorite] = useState(music.isFavorite);
 
   function handleFavorite(e) {
@@ -22,7 +24,7 @@ export default function Song({ music }) {
   }
 
   return (
-    <Link to={"/player"} className="song">
+    <Link to={`/player/${music.name}`} state={musics} className="song">
       <h2>{music.name}</h2>
       <button className="favorite-btn" onClick={(e) => handleFavorite(e)}>
         <img

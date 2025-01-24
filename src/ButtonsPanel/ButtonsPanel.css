@@ -1,0 +1,30 @@
+.buttons-panel {
+  width: 30%;
+  height: 60px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.buttons-panel button {
+  width: 60px;
+  height: 60px;
+  background-color: var(--grey);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.buttons-panel button:focus-visible {
+  outline: 2px solid var(--blue);
+}
+
+.buttons-panel button:hover {
+  filter: brightness(1.4);
+}
+
+.buttons-panel img {
+  width: 95%;
+  height: 95%;
+}

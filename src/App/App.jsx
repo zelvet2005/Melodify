@@ -1,48 +1,48 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import Header from "../Header/Header";
-import Songs from "../AllSongs/Songs";
-import Search from "../Search/Search";
-import ManageButtons from "../ManageButtons/ManageButtons";
 import { getMusics, saveMusics } from "../services";
+import Header from "../Header/Header";
+import SongsList from "../SongsList/SongsList";
 import { createContext, useEffect, useState } from "react";
 
-export const ManageFavoriteSongsContext = createContext();
+export const FavoriteMusicsContext = createContext();
 
 const allMusics = getMusics();
 
 export default function App() {
-  const [favoriteSongs, setFavoriteSongs] = useState(
+  const [favoriteMusics, setFavoriteMusics] = useState(
     allMusics.filter((music) => music.isFavorite)
   );
 
-  useEffect(() => saveMusics(allMusics), [favoriteSongs]);
+  useEffect(() => saveMusics(allMusics), [favoriteMusics]);
 
-  function addToFavorite(music) {
-    setFavoriteSongs([...favoriteSongs, music]);
+  function removeFavoriteMusic(music) {
+    setFavoriteMusics(
+      favoriteMusics.filter((favoriteMusic) => favoriteMusic !== music)
+    );
+    music.isFavorite = false;
   }
-  function removeFromFavorite(deletedMusic) {
-    setFavoriteSongs(favoriteSongs.filter((music) => music !== deletedMusic));
+  function addFavoriteMusic(music) {
+    setFavoriteMusics([...favoriteMusics, music]);
+    music.isFavorite = true;
   }
 
   return (
     <BrowserRouter>
       <Header />
       <main>
-        <Search />
-        <ManageButtons />
-        <ManageFavoriteSongsContext.Provider
-          value={{ addToFavorite, removeFromFavorite }}
+        <FavoriteMusicsContext.Provider
+          value={{ removeFavoriteMusic, addFavoriteMusic }}
         >
           <Routes>
             <Route path="/" element={<Navigate to="/all" />} />
-            <Route path="/all" element={<Songs musics={allMusics} />} />
+            <Route path="/all" element={<SongsList musics={allMusics} />} />
             <Route
               path="/favorite"
-              element={<Songs musics={favoriteSongs} />}
+              element={<SongsList musics={favoriteMusics} />}
             />
           </Routes>
-        </ManageFavoriteSongsContext.Provider>
+        </FavoriteMusicsContext.Provider>
       </main>
     </BrowserRouter>
   );

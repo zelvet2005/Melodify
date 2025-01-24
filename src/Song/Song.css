@@ -1,0 +1,33 @@
+.song {
+  height: 45px;
+  background-color: var(--grey);
+  color: var(--blue);
+  box-sizing: border-box;
+  padding: 0 8px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+}
+
+.song:hover {
+  filter: brightness(1.4);
+}
+
+.favorite-btn {
+  width: 45px;
+  height: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.favorite-btn > img {
+  width: 100%;
+  height: 100%;
+}

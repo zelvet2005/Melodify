@@ -16,13 +16,29 @@ export default function Player() {
   const [duration, setDuration] = useState(-1);
   const [timer, setTimer] = useState(null);
   const [isPlay, setIsPlay] = useState(false);
+  const [isRepeatable, setIsRepeatable] = useState(false);
+  const [isRandom, setIsRandom] = useState(false);
 
   useEffect(() => {
     if (currentTime === Math.floor(duration)) {
-      nextSong();
       clearInterval(timer);
       setTimer(null);
-      setIsPlay(false);
+      if (isRepeatable) {
+        setCurrentTime(0);
+        audioElement.current.currentTime = 0;
+        audioElement.current.play();
+        setTimer(
+          setInterval(() => {
+            setCurrentTime((prev) => prev + 1);
+          }, 1000)
+        );
+      } else if (isRandom) {
+        randomSong();
+        setIsPlay(false);
+      } else {
+        nextSong();
+        setIsPlay(false);
+      }
     }
   }, [currentTime]);
 
@@ -30,6 +46,11 @@ export default function Player() {
     const newTime = e.target.value;
     setCurrentTime(+newTime);
     audioElement.current.currentTime = newTime;
+  }
+  function randomSong() {
+    const newIndex = getRandomIndex();
+    setCurrentMusicIndex(newIndex);
+    setCurrentTime(0);
   }
   function nextSong() {
     setCurrentMusicIndex(
@@ -42,6 +63,14 @@ export default function Player() {
       currentMusicIndex === 0 ? musics.length - 1 : currentMusicIndex - 1
     );
     setCurrentTime(0);
+  }
+  function getRandomIndex() {
+    const randomIndex = Math.floor(Math.random() * musics.length);
+    return randomIndex === currentMusicIndex
+      ? currentMusicIndex === musics.length - 1
+        ? 0
+        : currentMusicIndex + 1
+      : randomIndex;
   }
   function getFormattedTime(time) {
     const minutes = Math.floor(time / 60);
@@ -81,6 +110,10 @@ export default function Player() {
         audio={audioElement}
         timer={timer}
         isPlay={isPlay}
+        isRepeatable={isRepeatable}
+        isRandom={isRandom}
+        setIsRandom={setIsRandom}
+        setIsRepeatable={setIsRepeatable}
         setIsPlay={setIsPlay}
         setTimer={setTimer}
         setCurrentTime={setCurrentTime}

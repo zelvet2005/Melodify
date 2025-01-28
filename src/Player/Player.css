@@ -8,6 +8,7 @@
 
 .record-img {
   width: 350px;
+  transition: linear 1s;
 }
 
 .song-name {

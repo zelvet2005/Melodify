@@ -7,7 +7,7 @@ export default function Header() {
       <h1>
         <img
           src="images/favicon.svg"
-          alt="Melodify logo"
+          alt="logo"
           className="logo"
           draggable={false}
         />

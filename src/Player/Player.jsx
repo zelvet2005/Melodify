@@ -8,6 +8,7 @@ export default function Player() {
   const musics = location.state;
   const { name } = useParams();
   const audioElement = useRef();
+  const recordImgElement = useRef();
 
   const [currentMusicIndex, setCurrentMusicIndex] = useState(
     musics.findIndex((music) => music.name === name)
@@ -18,6 +19,7 @@ export default function Player() {
   const [isPlay, setIsPlay] = useState(false);
   const [isRepeatable, setIsRepeatable] = useState(false);
   const [isRandom, setIsRandom] = useState(false);
+  const [animAngle, setAnimAngle] = useState(0);
 
   useEffect(() => {
     if (currentTime === Math.floor(duration)) {
@@ -39,6 +41,11 @@ export default function Player() {
         nextSong();
         setIsPlay(false);
       }
+    }
+    if (isPlay) {
+      const newAngle = animAngle + 10;
+      setAnimAngle(newAngle);
+      recordImgElement.current.style.transform = `rotate(${newAngle}deg)`;
     }
   }, [currentTime]);
 
@@ -92,6 +99,7 @@ export default function Player() {
         alt=""
         className="record-img"
         draggable={false}
+        ref={recordImgElement}
       />
       <h3 className="song-name">{musics[currentMusicIndex].name}</h3>
       <input

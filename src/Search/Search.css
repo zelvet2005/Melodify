@@ -50,3 +50,19 @@
   width: 90%;
   height: 90%;
 }
+
+@media (max-width: 1050px) {
+  .search-form {
+    width: 70%;
+  }
+}
+@media (max-width: 900px) {
+  .search-form {
+    width: 80%;
+  }
+}
+@media (max-width: 500px) {
+  .search-form {
+    width: 90%;
+  }
+}

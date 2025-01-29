@@ -14,6 +14,7 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .buttons-panel button:focus-visible {
@@ -27,4 +28,16 @@
 .buttons-panel img {
   width: 95%;
   height: 95%;
+}
+
+@media (max-width: 500px) {
+  .buttons-panel {
+    gap: 10px;
+  }
+}
+@media (max-width: 430px) {
+  .buttons-panel button {
+    width: 50px;
+    height: 50px;
+  }
 }

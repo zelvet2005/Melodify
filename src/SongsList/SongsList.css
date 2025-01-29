@@ -5,3 +5,19 @@
   flex-direction: column;
   gap: 15px;
 }
+
+@media (max-width: 1050px) {
+  .song-list {
+    width: 70%;
+  }
+}
+@media (max-width: 900px) {
+  .song-list {
+    width: 80%;
+  }
+}
+@media (max-width: 500px) {
+  .song-list {
+    width: 90%;
+  }
+}

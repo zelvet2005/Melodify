@@ -17,3 +17,10 @@ nav a:hover {
   outline: none;
   color: var(--blue);
 }
+
+@media (max-width: 500px) {
+  nav > ul {
+    margin-right: 10px;
+    gap: 10px;
+  }
+}

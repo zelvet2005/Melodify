@@ -17,3 +17,28 @@ header > h1 {
 .logo {
   height: 8vh;
 }
+
+@media (max-width: 600px) {
+  header > h1 {
+    font-size: 2rem;
+  }
+  .logo {
+    height: 5vh;
+  }
+}
+@media (max-width: 500px) {
+  header > h1 {
+    margin-left: 10px;
+    font-size: 1.8rem;
+    gap: 10px;
+  }
+
+  .logo {
+    height: 4.5vh;
+  }
+}
+@media (max-width: 450px) {
+  header > h1 {
+    font-size: 1.6rem;
+  }
+}

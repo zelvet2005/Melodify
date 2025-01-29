@@ -19,7 +19,7 @@ export default function Player() {
   const [isPlay, setIsPlay] = useState(false);
   const [isRepeatable, setIsRepeatable] = useState(false);
   const [isRandom, setIsRandom] = useState(false);
-  const [animAngle, setAnimAngle] = useState(0);
+  const [animAngle, setAnimAngle] = useState(10);
 
   useEffect(() => {
     if (currentTime === Math.floor(duration)) {
@@ -43,9 +43,8 @@ export default function Player() {
       }
     }
     if (isPlay) {
-      const newAngle = animAngle + 10;
-      setAnimAngle(newAngle);
-      recordImgElement.current.style.transform = `rotate(${newAngle}deg)`;
+      recordImgElement.current.style.transform = `rotate(${animAngle}deg)`;
+      setAnimAngle(animAngle + 10);
     }
   }, [currentTime]);
 

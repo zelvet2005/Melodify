@@ -3,7 +3,7 @@
   height: 50px;
   background-color: var(--grey);
   box-sizing: border-box;
-  margin: 30px auto;
+  margin: 50px auto;
   display: flex;
   border-radius: 20px;
 }

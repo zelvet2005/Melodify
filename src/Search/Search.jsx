@@ -27,7 +27,11 @@ export default function Search({ allMusics, setSearchedMusics }) {
         onChange={(e) => setSongSubname(e.target.value)}
       />
       <button type="submit" className="search-btn">
-        <img src="/images/search.svg" alt="search" draggable={false} />
+        <img
+          src={`${import.meta.env.BASE_URL}/images/search.svg`}
+          alt="search"
+          draggable={false}
+        />
       </button>
     </form>
   );

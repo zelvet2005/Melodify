@@ -11,6 +11,7 @@ export const FavoriteMusicsContext = createContext();
 const allMusics = getMusics();
 
 export default function App() {
+  const base = import.meta.env.BASE_URL;
   const [favoriteMusics, setFavoriteMusics] = useState(
     allMusics.filter((music) => music.isFavorite)
   );
@@ -36,13 +37,16 @@ export default function App() {
           value={{ removeFavoriteMusic, addFavoriteMusic }}
         >
           <Routes>
-            <Route path="/" element={<Navigate to="/all" />} />
-            <Route path="/all" element={<SongsList musics={allMusics} />} />
+            <Route path={`${base}`} element={<Navigate to={`${base}all`} />} />
             <Route
-              path="/favorite"
+              path={`${base}all`}
+              element={<SongsList musics={allMusics} />}
+            />
+            <Route
+              path={`${base}favorite`}
               element={<SongsList musics={favoriteMusics} />}
             />
-            <Route path="/player/:name" element={<Player />} />
+            <Route path={`${base}player/:name`} element={<Player />} />
           </Routes>
         </FavoriteMusicsContext.Provider>
       </main>

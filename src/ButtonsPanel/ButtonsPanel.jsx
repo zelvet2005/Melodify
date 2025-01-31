@@ -15,6 +15,8 @@ export default function ButtonsPanel({
   nextSong,
   previousSong,
 }) {
+  const base = import.meta.env.BASE_URL;
+
   function handlePlay() {
     const newIsPlaying = !isPlay;
     setIsPlay(newIsPlaying);
@@ -47,7 +49,11 @@ export default function ButtonsPanel({
           stopAudio();
         }}
       >
-        <img src="/images/previous.svg" alt="previous" draggable={false} />
+        <img
+          src={`${base}/images/previous.svg`}
+          alt="previous"
+          draggable={false}
+        />
       </button>
       <button
         style={{ filter: isRandom ? "brightness(1.4)" : "" }}
@@ -56,11 +62,11 @@ export default function ButtonsPanel({
           setIsRepeatable(false);
         }}
       >
-        <img src="/images/random.svg" alt="random" draggable={false} />
+        <img src={`${base}/images/random.svg`} alt="random" draggable={false} />
       </button>
       <button onClick={handlePlay}>
         <img
-          src={isPlay ? "/images/stop.svg" : "/images/play.svg"}
+          src={isPlay ? `${base}/images/stop.svg` : `${base}/images/play.svg`}
           alt="play or stop"
           draggable={false}
         />
@@ -72,7 +78,7 @@ export default function ButtonsPanel({
           setIsRandom(false);
         }}
       >
-        <img src="/images/repeat.svg" alt="repeat" draggable={false} />
+        <img src={`${base}/images/repeat.svg`} alt="repeat" draggable={false} />
       </button>
       <button
         onClick={() => {
@@ -81,7 +87,7 @@ export default function ButtonsPanel({
           stopAudio();
         }}
       >
-        <img src="/images/next.svg" alt="next" draggable={false} />
+        <img src={`${base}/images/next.svg`} alt="next" draggable={false} />
       </button>
     </div>
   );

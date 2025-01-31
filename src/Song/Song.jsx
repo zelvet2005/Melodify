@@ -6,6 +6,7 @@ import { FavoriteMusicsContext } from "../App/App";
 import { SongsListContext } from "../SongsList/SongsList";
 
 export default function Song({ music }) {
+  const base = import.meta.env.BASE_URL;
   const { removeFavoriteMusic, addFavoriteMusic } = useContext(
     FavoriteMusicsContext
   );
@@ -24,11 +25,15 @@ export default function Song({ music }) {
   }
 
   return (
-    <Link to={`/player/${music.name}`} state={musics} className="song">
+    <Link to={`${base}player/${music.name}`} state={musics} className="song">
       <h2>{music.name}</h2>
       <button className="favorite-btn" onClick={(e) => handleFavorite(e)}>
         <img
-          src={isFavorite ? "/images/full-like.svg" : "/images/empty-like.svg"}
+          src={
+            isFavorite
+              ? `${base}/images/full-like.svg`
+              : `${base}/images/empty-like.svg`
+          }
           alt="favorite"
         />
       </button>

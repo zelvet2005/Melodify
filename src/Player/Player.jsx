@@ -94,7 +94,7 @@ export default function Player() {
         onLoadedMetadata={() => setDuration(audioElement.current.duration)}
       ></audio>
       <img
-        src="/images/record.svg"
+        src={`${import.meta.env.BASE_URL}/images/record.svg`}
         alt=""
         className="record-img"
         draggable={false}
